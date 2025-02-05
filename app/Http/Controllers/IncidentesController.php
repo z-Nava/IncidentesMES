@@ -45,4 +45,35 @@ class IncidentesController extends Controller
         return redirect()->route('index')->with('success', 'Datos importados con exito');
     }
 
+        public function newIncident(Request $request)
+    {
+        $request->validate([
+            'date' => 'required|date',
+            'job' => 'required|string',
+            'line' => 'required|string',
+            'issue' => 'required|string',
+            'evidence' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'persons_attended' => 'required|string',
+            'total_invested_time' => 'required|integer',
+        ]);
+
+        $incidente = new Incidente();
+        $incidente->date = $request->date;
+        $incidente->job = $request->job;
+        $incidente->line = $request->line;
+        $incidente->issue = $request->issue;
+        $incidente->persons_attended = $request->persons_attended;
+        $incidente->total_invested_time = $request->total_invested_time;
+
+        if ($request->hasFile('evidence')) {
+            $imageName = time().'.'.$request->evidence->extension();
+            $request->evidence->move(public_path('images'), $imageName);
+            $incidente->evidence = $imageName;
+        }
+
+        $incidente->save();
+
+        return redirect()->route('index')->with('success', 'Incidente creado con éxito');
+    }
+
 }
