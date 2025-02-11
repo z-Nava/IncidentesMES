@@ -18,7 +18,9 @@
                     <td class="px-6 py-4 whitespace-normal break-words">{{ $incidente->issue }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         @if($incidente->evidence)
-                            <img src="{{ asset('images/' . $incidente->evidence) }}" alt="Evidencia" class="w-16 h-16 object-cover cursor-pointer" onclick="openImageModal('{{ asset('images/' . $incidente->evidence) }}')">
+                            @foreach(json_decode($incidente->evidence) as $image)
+                                <img src="{{ asset('storage/' . $image) }}" alt="Evidencia" class="w-16 h-16 object-cover cursor-pointer" onclick="openImageModal('{{ asset('storage/' . $image) }}')">
+                            @endforeach
                         @else
                             No image
                         @endif

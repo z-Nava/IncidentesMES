@@ -26,8 +26,18 @@ class Incidente extends Model
 
     protected $dates = ['date'];
 
+    protected $casts = [
+        'evidence' => 'array',
+    ];
+
     public function getEvidenceUrlAttribute()
     {
-        return $this->evidence ? asset('storage/' . $this->evidence) : null;
+        if ($this->evidence) {
+            return array_map(function ($image) {
+                return asset('storage/' . $image);
+            }, $this->evidence);
+        }
+        return null;
     }
+    
 }

@@ -41,7 +41,7 @@
                     </div>
                     <div class="mb-4">
                         <label for="evidence" class="block text-sm font-medium text-gray-700">Evidencia</label>
-                        <input type="file" name="evidence" id="evidence" class="mt-1 p-2 border rounded w-full" accept="image/*">
+                        <input type="file" name="evidence[]" id="evidence" class="mt-1 p-2 border rounded w-full" accept="image/*" multiple>
                     </div>
                     <div class="mb-4">
                         <label for="job" class="block text-sm font-medium text-gray-700">Job</label>
