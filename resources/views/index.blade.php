@@ -67,6 +67,50 @@
             </div>
         </div>
 
+        --modal editar
+        <div id="editModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
+            <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
+                <h2 class="text-2xl font-semibold mb-4">Editar Incidente</h2>
+                <form action="{{ route('incidentes.update') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="id" id="editId">
+                    <div class="mb-4">
+                        <label for="editDate" class="block text-sm font-medium text-gray-700">Fecha</label>
+                        <input type="date" name="date" id="editDate" class="mt-1 p-2 border rounded w-full" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="editIssue" class="block text-sm font-medium text-gray-700">Incidente</label>
+                        <input type="text" name="issue" id="editIssue" class="mt-1 p-2 border rounded w-full" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="editEvidence" class="block text-sm font-medium text-gray-700">Evidencia</label>
+                        <input type="file" name="evidence[]" id="editEvidence" class="mt-1 p-2 border rounded w-full" accept="image/*" multiple>
+                    </div>
+                    <div class="mb-4">
+                        <label for="editJob" class="block text-sm font-medium text-gray-700">Job</label>
+                        <input type="text" name="job" id="editJob" class="mt-1 p-2 border rounded w-full" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="editLine" class="block text-sm font-medium text-gray-700">Line</label>
+                        <input type="text" name="line" id="editLine" class="mt-1 p-2 border rounded w-full" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="editPersonsAttended" class="block text-sm font-medium text-gray-700">Persons Who Attended</
+                        <input type="text" name="persons_attended" id="editPersonsAttended" class="mt-1 p-2 border rounded w-full" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="editTotalInvestedTime" class="block text-sm font-medium text-gray-700">Total Invested Time (min)</label>
+                        <input type="number" name="total_invested_time" id="editTotalInvestedTime" class="mt-1 p-2 border rounded w-full" required>
+                    </div>
+                    <div class="flex justify-end">
+                        <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded mr-2" onclick="closeModal()">Cancelar</button>
+                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+
         <!-- Mensaje de éxito (si se importa correctamente el archivo) -->
         @if(session('success'))
             <div class="bg-green-500 text-white p-3 rounded mb-5">

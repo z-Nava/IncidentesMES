@@ -79,4 +79,52 @@ class IncidentesController extends Controller
 
         return redirect()->route('index')->with('success', 'Incidente creado con éxito');
     }
+
+    public function edit(Incidente $incidente)
+    {
+        return view('edit', compact('incidente'));
+    }
+
+    public function update(Request $request, Incidente $incidente)
+    {
+        $request->validate([
+            'date' => 'required|date',
+            'job' => 'required|string',
+            'line' => 'required|string',
+            'issue' => 'required|string',
+            'evidence.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'persons_attended' => 'required|string',
+            'total_invested_time' => 'required|integer',
+        ]);
+
+        $incidente->date = $request->date;
+        $incidente->job = $request->job;
+        $incidente->line = $request->line;
+        $incidente->issue = $request->issue;
+        $incidente->persons_attended = $request->persons_attended;
+        $incidente->total_invested_time = $request->total_invested_time;
+
+        if ($request->hasFile('evidence')) {
+            $images = [];
+            foreach ($request->file('evidence') as $file) {
+                $imageName = time() . '-' . $file->getClientOriginalName();
+                $file->move(public_path('images'), $imageName);
+                $images[] = $imageName;
+            }
+            $incidente->evidence = json_encode($images);
+        }
+
+        $incidente->save();
+
+        return redirect()->route('index')->with('success', 'Incidente actualizado con éxito');
+    }
+
+    public function destroy(Incidente $incidente)
+    {
+        $incidente->delete();
+
+        return redirect()->route('index')->with('success', 'Incidente eliminado con éxito');
+    }
+
+    
 }
