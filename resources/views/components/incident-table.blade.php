@@ -19,7 +19,7 @@
                     <td class="px-6 py-4 whitespace-nowrap">
                         @if($incidente->evidence)
                             @foreach(json_decode($incidente->evidence) as $image)
-                                <img src="{{ asset('storage/' . $image) }}" alt="Evidencia" class="w-16 h-16 object-cover cursor-pointer" onclick="openImageModal('{{ asset('storage/' . $image) }}')">
+                                <img src="{{ asset('images/' . $image) }}" alt="Evidencia" class="w-16 h-16 object-cover cursor-pointer" onclick="openImageModal('{{ asset('images/' . $image) }}')">
                             @endforeach
                         @else
                             No image
